@@ -13,7 +13,7 @@ var svg = d3.select("#viz").insert("svg:svg", "h2")
 
 var countries = svg.append("svg:g").attr("id", "countries");
 
-d3.json("/data/world-countries.json", function(collection){
+d3.json("../src/data/world-countries.json", function(collection){
   countries.selectAll("path").data(collection.features)
     .enter().append("svg:path").attr("d", path)
     .attr("data-i", function(d, i) {
