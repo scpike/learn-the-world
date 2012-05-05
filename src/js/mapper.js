@@ -16,6 +16,15 @@ var countries = svg.append("svg:g").attr("id", "countries");
 d3.json("/data/world-countries.json", function(collection){
   countries.selectAll("path").data(collection.features)
     .enter().append("svg:path").attr("d", path)
+    .attr("data-i", function(d, i) {
+      return i * 21;  //Bar width of 20 plus 1 for padding
+    })
+    .attr("data-name", function(d, i) {
+      return d.properties.name;  //Bar width of 20 plus 1 for padding
+    })
+    .attr("data-initials", function(d, i) {
+      return d.id;  //Bar width of 20 plus 1 for padding
+    })
     .on("mouseover", function(){if(!(this.answered || this === window.selected_country)){d3.select(this).style("fill", "#eee")};})
     .on("mouseout", function(){
       if(!(this.answered || this === window.selected_country)){
@@ -52,9 +61,40 @@ function checkAnswer(){
   }
 }
 
+// Check whether the current input is the selected country
+function checkAgainstAll(){
+  guess = $("#guess").val();
+  country = d3.selectAll("path").filter(function(i,k){
+    if(i.properties.name.toLowerCase() === guess.toLowerCase()){
+      return this;
+    } else {
+      return null
+    }
+  })
+  if (country[0].length){
+    country = country[0][0]
+    if (country.answered){
+      country.answered = true
+      d3.select(country).transition()
+        .style("fill", "lightblue")
+        .each("end", colorGreen)
+    } else {
+      d3.select(country).style("fill", "green")
+      country.answered = true
+      $("#correct").append($('<li>').text(country.getAttribute("data-name")));
+    }
+    $("#guess").val("");
+  }
+}
+
+function colorGreen(){
+  d3.select(this).transition()
+    .style("fill", "green")
+}
+
 $(document).ready(function(){
   $("#guess").keyup(function(){
-    checkAnswer();
+    checkAgainstAll();
     return false;
   });
 });
