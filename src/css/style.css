@@ -1,0 +1,24 @@
+#countries path {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+path.arc {
+  pointer-events: none;
+  fill: none;
+  stroke: #000;
+  display: none;
+}
+
+path.cell {
+  fill: none;
+  pointer-events: all;
+}
+
+.centered {
+  text-align: center;
+}
+
+h1 {
+  margin: 20px 0px 0px 0px;
+}
