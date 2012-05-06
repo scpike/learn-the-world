@@ -97,3 +97,8 @@ $("#guess").keyup(function(){
   checkAgainstAll();
   return false;
 });
+
+// Do we support SVG?
+if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")){
+  $("#browser-warning").show();
+}
