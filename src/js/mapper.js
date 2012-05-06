@@ -43,7 +43,6 @@ function selectCountry(){
       $("#answer").text(window.current_answer)
       d3.select(this).style("fill", "#05C")
     }
-//    $("#guess").focus();
   }
 }
 
@@ -92,11 +91,9 @@ function colorGreen(){
     .style("fill", "green")
 }
 
-$(document).ready(function(){
-  $("#guess").keyup(function(){
-    checkAgainstAll();
-    return false;
-  });
+
+$("#guess").focus();
+$("#guess").keyup(function(){
+  checkAgainstAll();
+  return false;
 });
-
-
